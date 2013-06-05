@@ -44,6 +44,9 @@ abstract class MarkupProcessor {
     val xslt = new StreamSource(new File(resourceURL(defaultXslStylesheet).toURI));
     
     val transformer = transformerFactory.newTransformer(xslt);
+    transformer.setParameter("use.extensions", "1")
+    transformer.setParameter("fop.extensions", "0")
+    transformer.setParameter("fop1.extensions", "1")         // generate bookmark tree
     transformer.setParameter("admon.graphics", "1")
     transformer.setParameter("admon.graphics.path", resourceURL(imagePath))
     transformer.setParameter("admon.graphics.extension", ".svg")
