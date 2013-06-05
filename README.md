@@ -11,9 +11,9 @@ creation.
 ### Supported input formats
 
 * [Markdown](http://daringfireball.net/projects/markdown/): with the
-  [Laika toolkit](planet42.github.io/Laika)
+  [Laika toolkit](http://planet42.github.io/Laika)
 * [reStructuredText](http://docutils.sourceforge.net/docs/ref/rst/introduction.html): with the 
-  [Laika toolkit](planet42.github.io/Laika)
+  [Laika toolkit](http://planet42.github.io/Laika)
 * [AsciiDoc](http://www.methods.co.nz/asciidoc/): with
   [AsciiDoctor](http://asciidoctor.org/)
 
