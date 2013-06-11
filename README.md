@@ -45,7 +45,7 @@ TODO: As Sandoc is in the early beta stage, there were no JAR packages released.
 
 Create the Laika-Documentation as PDF:
 
-    run -o laika.pdf --title "Laika" testDocs/basics.md testDocs/customize.md testDocs/parser.md testDocs/renderer.md testDocs/tree-rewriting.md
+    run -o laika.pdf --title Laika testDocs/intro.md testDocs/basics.md testDocs/markup.md testDocs/renderer.md testDocs/tree-rewriting.md testDocs/parser.md testDocs/renderer.md
 
 ## Build instructions
 
@@ -56,6 +56,6 @@ Sandoc is written in less than 200 lines of Scala code and uses the [sbt](http:/
 For PDF hypenation support you may want to include [FOP  hyphenation pattern files](http://xmlgraphics.apache.org/fop/0.95/hyphenation.html).
 Because of licence issues they are not distributed with Sandoc.
 
-### License
+## License
 
 Apache License, Version 2.0
