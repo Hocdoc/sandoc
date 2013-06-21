@@ -30,13 +30,15 @@ TODO: As Sandoc is in the early beta stage, there were no JAR packages released.
     > sbt
     > run --help
 
-    Sandoc 0.1
+    Sandoc 0.2
     Usage: sandoc -o file.pdf markdown1.md markdown2.md
       -f, --from-format  <arg>   Specify input format.  Can be markdown, rst
                                  (reStructuredText) or asciidoc.
       -o, --output  <arg>        Write output to this file.
           --title  <arg>         Title of the document for DocBook/PDF output.
       -t, --to-format  <arg>     Specify output format. Can be html, docbook or pdf.
+      -x, --xslt  <arg>          Specify the path of a custom XSL template for the
+                                 DocBook creation.
           --help                 Show help message
           --version              Show version of this program
 
