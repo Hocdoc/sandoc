@@ -167,7 +167,10 @@ class DocBook private (messageLevel: Option[MessageLevel], title: String) extend
     def renderSimpleSpan (span: Span) = span match {
       case CitationLink(label,opt)     => out <<@ ("a",opt + Styles("citation"),"href"->("#"+label)) << "[" << label << "]</a>" 
       case FootnoteLink(id,label,opt)  => out <<@ ("a",opt + Styles("footnote"),"href"->("#"+id))    << "[" << label << "]</a>" 
-//      case Image(text,url,title,opt)   => out <<@ ("mediaobject") << ("alt") << text << "</alt>" << "<imageobject>" <<@ ("imagedata",None,("fileref", url))     // TODO: Title, close tag
+      case Image(text,url,title,opt)   => out << "<mediaobject>" << 
+                                          "<alt>" << text << "</alt>" << 
+                                          "<imageobject>" <<@ ("imagedata", opt,("fileref", url), ("width", "100%")) << "</imagedata></imageobject>" <<
+                                          "</mediaobject>"
       case LineBreak(opt)              => out           // No <br>-Tag in DocBook
       
       case WithFallback(fallback)      => out << fallback
