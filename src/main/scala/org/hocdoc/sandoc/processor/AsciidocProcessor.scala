@@ -30,7 +30,7 @@ class AsciidocProcessor extends MarkupProcessor {
 
   private val asciidoctor = Asciidoctor.Factory.create
     
-  override def render(inputText: String, outputContentType: OutputContentType.Value, stream: OutputStream): Unit = {
+  override def render(inputText: String, outputContentType: OutputContentType.Value, stream: OutputStream, xsltPath: String): Unit = {
     val isPdf = outputContentType == OutputContentType.Pdf
     
     val renderReader = new StringReader(inputText)
@@ -38,7 +38,7 @@ class AsciidocProcessor extends MarkupProcessor {
     val renderWriter = if(isPdf) stringWriter else new PrintWriter(stream)
     asciidoctor.render(renderReader, renderWriter, renderOptions(outputContentType))
     
-    if(isPdf) docBookToPdf(stringWriter.toString, stream)
+    if(isPdf) docBookToPdf(stringWriter.toString, stream, xsltPath)
   }
   
   private def renderOptions(outputContentType: OutputContentType.Value): Options = {

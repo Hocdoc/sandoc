@@ -35,13 +35,14 @@ class LaikaProcessor(inputContentType: InputContentType.Value, title: String) ex
     case _                                 => throw new IllegalArgumentException("Unsupported Laika input content type.")
   }
 
-  override def render(inputText: String, outputContentType: OutputContentType.Value, stream: OutputStream): Unit = {
+  override def render(inputText: String, outputContentType: OutputContentType.Value, 
+                      stream: OutputStream, xsltPath: String): Unit = {
     val doc = parser fromString inputText
     
     outputContentType match {
       case OutputContentType.Html =>Render as HTML from doc toStream stream
       case OutputContentType.DocBook => Render as (DocBook withTitle(title)) from doc toStream stream
-      case OutputContentType.Pdf => docBookToPdf(Render as (DocBook withTitle(title)) from doc toString, stream)
+      case OutputContentType.Pdf => docBookToPdf(Render as (DocBook withTitle(title)) from doc toString, stream, xsltPath)
     }
   }
   

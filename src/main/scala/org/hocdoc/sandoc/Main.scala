@@ -37,8 +37,10 @@ object Main extends App {
   }
   
   val stream = conf.output.get.map(x => new FileOutputStream(x)).getOrElse(System.out)
+  val xslt = conf.xslt.get.getOrElse(conf.defaultXslt)
+  
   try {
-    processor.render(inputText, outputContentType, stream)
+    processor.render(inputText, outputContentType, stream, xslt)
   } finally {
     if(stream != System.out) stream.close()
   }

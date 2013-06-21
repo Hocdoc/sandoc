@@ -20,13 +20,16 @@ import org.rogach.scallop.ScallopConf
 
 class Conf(args: Seq[String]) extends ScallopConf(args) {
 
-  version("Sandoc 0.1")
+  val defaultXslt = getClass.getResource("/xsl/docbook/fo/docbook.xsl").getPath
+      
+  version("Sandoc 0.2")
   banner("""Usage: sandoc -o file.pdf markdown1.md markdown2.md""".stripMargin)
   
   val fromFormat = opt[String](descr = "Specify input format.  Can be markdown, rst (reStructuredText) or asciidoc.")
   val toFormat = opt[String](descr = "Specify output format. Can be html, docbook or pdf.")
   val output = opt[String](descr = "Write output to this file.")
   val title = opt[String](descr = "Title of the document for DocBook/PDF output.")
+  val xslt = opt[String](descr = "Specify the path of a custom XSL template for the DocBook creation.")
   val inputFiles = trailArg[List[String]]()
  
 }

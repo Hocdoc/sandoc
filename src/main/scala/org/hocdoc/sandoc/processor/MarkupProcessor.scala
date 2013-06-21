@@ -26,22 +26,24 @@ import java.io.StringReader
 import java.io.File
 import javax.xml.transform.sax.SAXResult
 import java.net.URL
+import grizzled.slf4j.Logging
 
-abstract class MarkupProcessor {
+abstract class MarkupProcessor extends Logging {
 
-  protected val defaultXslStylesheet = "/xsl/docbook/fo/docbook.xsl"
   protected val imagePath = "/xsl/docbook/images/"
   protected val calloutImagePath = imagePath + "callouts/"
     
   protected lazy val fopFactory = FopFactory.newInstance
   
-  def render(inputText: String, outputContentType: OutputContentType.Value, stream: OutputStream): Unit
+  def render(inputText: String, outputContentType: OutputContentType.Value, 
+             stream: OutputStream, xsltPath: String): Unit
   
   /** Renders a DocBook as PDF with Apache FOP. */
-  protected def docBookToPdf(docbookXml: String, stream: OutputStream): Unit = {
+  protected def docBookToPdf(docbookXml: String, stream: OutputStream, xsltPath: String): Unit = {
+    val startTime = System.currentTimeMillis
     val fop = fopFactory.newFop(MimeConstants.MIME_PDF, stream)
     val transformerFactory = TransformerFactory.newInstance
-    val xslt = new StreamSource(new File(resourceURL(defaultXslStylesheet).toURI));
+    val xslt = new StreamSource(new File(xsltPath));
     
     val transformer = transformerFactory.newTransformer(xslt);
     transformer.setParameter("use.extensions", "1")
@@ -55,6 +57,9 @@ abstract class MarkupProcessor {
     val src = new StreamSource(new StringReader(docbookXml))    
     val result = new SAXResult(fop.getDefaultHandler)
     transformer.transform(src, result)
+    
+    val endTime = System.currentTimeMillis
+    logger.info("FOP Time: " + (endTime - startTime))
   }
 
   /** Absolute URL of a file resource. */
